@@ -65,5 +65,8 @@ to the period of the series. Then the average rangeAUC is the volume under the T
 
 ## Cite this Work:
 If you find this  work useful, you may cite this work:
-```
+```plain
+John Paparrizos, Paul Boniol, Themis Palpanas, Ruey S. Tsay, Aaron Elmore, and Michael J. Franklin (2022).
+Volume Under the Surface: A New Accuracy Evaluation Measure for Time-Series Anomaly Detection.
+PVLDB, 15(11): 2774 - 2787, 2022. doi:10.14778/3551793.3551830
 ```
