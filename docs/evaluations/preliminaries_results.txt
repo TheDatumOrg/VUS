@@ -1,9 +1,0 @@
-Qualitative Evaluation
-
-Figures for 6 datasets in which evaluations measures are depicted
-
-Quantitative evaluation
-
-Robustness to lab (+- a quarter of the subsequence length)
-
-Robustness to noise (+- 10% of the anoamly score)
