@@ -69,6 +69,7 @@ python setup.py install
 pip install -r requirements.txt
 ```
 
+
 ## repo organisation
 
 This repo contains all the codes and examples in order to facilitate the reproductibility of our experimental evaluation. The latter is organized as follows:
@@ -101,4 +102,70 @@ This repo contains all the codes and examples in order to facilitate the reprodu
 - - - **MBA_ECG820_data.out_z_test.pickle**: aggregated results of the **experiments/separability_analysis/benchmark_sep_exp_MBA.py** script
 - - - **SED_data.out_z_test.pickle**: aggregated results of the **experiments/separability_analysis/benchmark_sep_exp_SED.py** script
 
+## How to use
 
+Here is an example on how to run Range-AUC and VUS measures for a given model.
+
+```python
+
+
+import sys
+module_path = os.path.abspath(os.path.join('.'))
+if module_path not in sys.path:
+    sys.path.append(module_path)
+
+from sklearn.preprocessing import MinMaxScaler
+from src.models.iforest import IForest
+from src.analysis.robustness_eval import generate_curve
+from src.utils.metrics import metricor
+
+# Data Preprocessing
+filepath = "path/to/time_series"
+slidingWindow = 100 #the user-defined subsequence length 
+
+df = pd.read_csv(filepath, header=None).to_numpy()
+data = df[0:-1,0].astype(float)
+label = df[0:-1,1]
+
+#specific type of data structure for IF, LOF, and PCA
+X_data = Window(window = slidingWindow).convert(data).to_numpy()
+
+
+# Training the model and computing the score
+
+# Matrix Profile
+# clf = MatrixProfile(window = slidingWindow)
+# x = data
+
+# POLY
+# clf = POLY(power=3, window = slidingWindow)
+# x = data
+
+# PCA
+# clf = PCA()
+# x = X_data
+
+# LOF
+# clf = LOF(n_neighbors=20, n_jobs=1)
+# x = X_data
+
+# Isolation Forest
+clf = IForest(n_jobs=1)
+x = X_data
+
+clf.fit(x)
+score = clf.decision_scores_
+
+# Score normalization
+score = MinMaxScaler(feature_range=(0,1)).fit_transform(score.reshape(-1,1)).ravel()
+score = np.array([score[0]]*math.ceil((slidingWindow-1)/2) + list(score) + [score[-1]]*((slidingWindow-1)//2))
+
+
+# Computing RANGE_AUC_ROC and RANGE_AUC_PR
+grader = metricor()
+R_AUC_ROC, R_AUC_PR, _, _, _ = grader.RangeAUC(labels=label, score=score, window=slidingWindow, plot_ROC=True)
+
+# Computing VUS_ROC and VUS_PR
+_, _, _, _, _, _,VUS_ROC, VUS_PR = generate_curve(label,score,2*slidingWindow)
+
+```
