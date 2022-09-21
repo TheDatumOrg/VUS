@@ -13,11 +13,11 @@ If you use VUS in your project or research, please cite our papers:
 John Paparrizos, Yuhao Kang, Paul Boniol, Ruey S. Tsay, Themis Palpanas,
 and Michael J. Franklin. TSB-UAD: An End-to-End Benchmark Suite for
 Univariate Time-Series Anomaly Detection. PVLDB, 15(8): 1697 - 1711, 2022.
-doi:10.14778/3529337.3529354
+doi:10.14778/3529337.3529354 [more info...](https://www.researchgate.net/publication/361483861_TSB-UAD_an_end-to-end_benchmark_suite_for_univariate_time-series_anomaly_detection)
 
 John Paparrizos, Paul Boniol, Themis Palpanas, Aaron Elmore,
-and Michael J. Franklin. Volume Under the Surface: new accuracy measures for abnormal subsequences detection in time series. PVLDB, 15(X): X - X, 2022.
-doi:X.X/X.X
+and Michael J. Franklin. Volume Under the Surface: new accuracy measures for abnormal subsequences detection in time series. PVLDB, 15(X): 2774 - 2787, 2022.
+doi:10.14778/3551793.3551830 [more info...](https://www.researchgate.net/publication/363485317_Volume_Under_the_Surface_A_New_Accuracy_Evaluation_Measure_for_Time-Series_Anomaly_Detection/stats)
 
 ## Datasets
 
