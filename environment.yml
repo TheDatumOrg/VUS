@@ -1,4 +1,4 @@
-name: VUS-temp
+name: VUS-env
 channels:
 - anaconda-fusion
 - defaults

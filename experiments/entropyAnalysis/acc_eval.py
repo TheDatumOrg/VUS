@@ -17,20 +17,20 @@ module_path = os.path.abspath(os.path.join('../..'))
 if module_path not in sys.path:
     sys.path.append(module_path)
 
-from src.models.distance import Fourier
-from src.models.feature import Window
-from src.utils.slidingWindows import find_length
-from src.utils.metrics import metricor
-from src.models.cnn import cnn
-from src.models.AE_mlp2 import AE_MLP2
-from src.models.lstm import lstm
-from src.models.ocsvm import OCSVM
-from src.models.poly import POLY
-from src.models.pca import PCA
-from src.models.norma import NORMA
-from src.models.matrix_profile import MatrixProfile
-from src.models.lof import LOF
-from src.models.iforest import IForest
+from vus.models.distance import Fourier
+from vus.models.feature import Window
+from vus.utils.slidingWindows import find_length
+from vus.utils.metrics import metricor
+from vus.models.cnn import cnn
+from vus.models.AE_mlp2 import AE_MLP2
+from vus.models.lstm import lstm
+from vus.models.ocsvm import OCSVM
+from vus.models.poly import POLY
+from vus.models.pca import PCA
+from vus.models.norma import NORMA
+from vus.models.matrix_profile import MatrixProfile
+from vus.models.lof import LOF
+from vus.models.iforest import IForest
 
 
 import warnings
