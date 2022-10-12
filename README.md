@@ -46,19 +46,18 @@ To ease reproducibility, we share our results over [TSB-UAD](http://chaos.cs.uch
 
 ## Installation
 
+### Install from [pip](https://pypi.org/project/vus/)
+
+```
+$ pip install vus
+```
+
 ### Create Environment and Install Dependencies
 
 ```
 $ conda env create --file environment.yml
 $ conda activate VUS-env
 $ pip install -r requirements.txt
-```
-
-
-### Install from [pip]()
-
-```
-$ pip install VUS
 ```
 
 ### Install from source
