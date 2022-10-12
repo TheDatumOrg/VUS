@@ -1,4 +1,4 @@
-# Volume Under the Surface: new accuracy measures for abnormal subsequences detection in time series
+# Volume Under the Surface: A New Accuracy Evaluation Measure for Time-Series Anomaly Detection
 
 The receiver operator characteristic (ROC) curve and the area under the curve (AUC) are widely used to compare the performance of different anomaly detectors. They mainly focus on point-based detection. However, the detection of collective anomalies concerns two factors: whether this outlier is detected and what percentage of this outlier is detected. The first factor is not reflected in the AUC. Another problem is the possible shift between the anomaly score and the real outlier due to the application of the sliding window. To tackle these problems, we incorporate the idea of range-based precision and recall, and suggest the range-based ROC and its counterpart in the precision-recall space, which provides a new evaluation for the collective anomalies. We finally introduce a new measure VUS (Volume Under the Surface) which corresponds to the averaged range-based measure when we vary the range size. We demonstrate in a large experimental evaluation that the proposed measures are significantly more robust to important criteria (such as lag and noise) and also significantly more useful to separate correctly the accurate from the the inaccurate methods.
 
@@ -6,18 +6,38 @@ The receiver operator characteristic (ROC) curve and the area under the curve (A
 <img width="500" src="./docs/auc_volume.png"/>
 </p>
 
+If you use VUS in your project or research, cite the following two papers:
+
+* [VLDB 2022a](https://www.paparrizos.org/papers/PaparrizosVLDB22a.pdf)
+* [VLDB 2022b](https://www.paparrizos.org/papers/PaparrizosVLDB22b.pdf)
+
 ## References
 
-If you use VUS in your project or research, please cite our papers:
+> "Volume Under the Surface: A New Accuracy Evaluation Measure for Time-Series Anomaly Detection"<br/>
+> John Paparrizos, Paul Boniol, Themis Palpanas, Ruey Tsay, Aaron Elmore, and Michael Franklin<br/>
+> Proceedings of the VLDB Endowment (**PVLDB 2022**) Journal, Volume 15, pages 2774‑2787<br/>
 
-> John Paparrizos, Yuhao Kang, Paul Boniol, Ruey S. Tsay, Themis Palpanas,
-and Michael J. Franklin. TSB-UAD: An End-to-End Benchmark Suite for
-Univariate Time-Series Anomaly Detection. PVLDB, 15(8): 1697 - 1711, 2022.
-doi:10.14778/3529337.3529354
+```bibtex
+@article{paparrizos2022volume,
+  title={{Volume Under the Surface: A New Accuracy Evaluation Measure for Time-Series Anomaly Detection}},
+  author={Paparrizos, John and Boniol, Paul and Palpanas, Themis and Tsay, Ruey S and Elmore, Aaron and Franklin, Michael J},
+  journal={Proceedings of the VLDB Endowment},
+  volume={15},
+  number={11},
+  pages={2774--2787},
+  year={2022},
+  publisher={VLDB Endowment}
+}
+
+```
+
+> "TSB-UAD: An End-to-End Benchmark Suite for Univariate Time-Series Anomaly Detection"<br/>
+> John Paparrizos, Yuhao Kang, Paul Boniol, Ruey Tsay, Themis Palpanas, and Michael Franklin.<br/>
+> Proceedings of the VLDB Endowment (**PVLDB 2022**) Journal, Volume 15, pages 1697–1711<br/>
 
 ```bibtex
 @article{paparrizos2022tsb,
-  title={TSB-UAD: an end-to-end benchmark suite for univariate time-series anomaly detection},
+  title={Tsb-uad: an end-to-end benchmark suite for univariate time-series anomaly detection},
   author={Paparrizos, John and Kang, Yuhao and Boniol, Paul and Tsay, Ruey S and Palpanas, Themis and Franklin, Michael J},
   journal={Proceedings of the VLDB Endowment},
   volume={15},
@@ -25,18 +45,6 @@ doi:10.14778/3529337.3529354
   pages={1697--1711},
   year={2022},
   publisher={VLDB Endowment}
-}
-```
-
-> John Paparrizos, Paul Boniol, Themis Palpanas, Aaron Elmore, and Michael J. Franklin. Volume Under the Surface: new accuracy measures for abnormal subsequences detection in time series. PVLDB, 15(X): X - X, 2022.
-doi:X.X/X.X
-
-```bibtex
-@article{paparrizos2022volume,
-  title={Volume Under the Surface: A New Accuracy Evaluation Measure for Time-Series Anomaly Detection},
-  author={Paparrizos, John and Boniol, Paul and Palpanas, Themis and Tsay, Ruey S and Elmore, Aaron and Franklin, Michael J},
-  journal={Technical Report LIPADE-TR-N7, Universit{\'e} Paris Cit{\'e}},
-  year={2022}
 }
 ```
 
