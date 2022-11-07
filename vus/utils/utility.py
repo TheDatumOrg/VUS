@@ -666,6 +666,24 @@ def generate_indices(random_state, bootstrap, n_population, n_samples):
     return indices
 
 
+def get_list_anomaly(labels):
+    results = []
+    start = 0
+    anom = False
+    for i,val in enumerate(labels):
+        if val == 1:
+            anom = True
+        else:
+            if anom:
+                results.append(i-start)
+                anom = False
+        if not anom:
+            start = i
+    return results
+            
+            
+
+
 # try:
 #     import igraph as ig
 # except:
