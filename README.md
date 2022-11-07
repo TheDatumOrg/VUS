@@ -91,13 +91,17 @@ $ python setup.py install
 |LSTM| 5.705758|	6.162379|	6.581456|	6.348949|	6.559446|	6.288700|	5.089040|	5.163219|	5.363024|	4.345831|	5.339533|	5.122215|	4.496773|
 |CNN| 5.230872|	5.420312|	5.799231|	5.464937|	5.742226|	5.439456|	4.888253|	4.963668|	4.993608|	4.156825|	5.087105|	4.904176|	4.326666|
 
-### Robustness to Lag: Top figure depicts the average standard deviation for ten different lag values over the AD methods applied on the MBA(805) time series. Bottom figure depicts the accuracy (measured 10 times) with random lag ℓ ∈ [−0.25 ∗ ℓ, 0.25 ∗ ℓ ] injected in the anomaly score with average accuracy centered to 0.
+### Robustness to Lag: 
+
+Top figure depicts the average standard deviation for ten different lag values over the AD methods applied on the MBA(805) time series. Bottom figure depicts the accuracy (measured 10 times) with random lag ℓ ∈ [−0.25 ∗ ℓ, 0.25 ∗ ℓ ] injected in the anomaly score with average accuracy centered to 0.
 
 <p align="center">
 <img width="500" src="https://raw.githubusercontent.com/bogireddytejareddy/VUS/patch-1/docs/lag.png"/>
 </p>
 
-### Separability Analysis: : Applied on 8 pairs of accurate (in green) and inaccurate (in red) methods on MBA(805) data.
+### Separability Analysis: : 
+
+Applied on 8 pairs of accurate (in green) and inaccurate (in red) methods on MBA(805) data.
 
 <p align="center">
 <img width="500" height="550" src="https://github.com/bogireddytejareddy/VUS/blob/patch-1/docs/separability_analysis.png"/>
@@ -106,6 +110,8 @@ $ python setup.py install
 ### Also see notebooks  in [experiments](https://github.com/bogireddytejareddy/VUS/tree/main/experiments) folder for more analysis on Roubstness, Separability and Entropy.
 
 ## Usage
+
+We depicts below a code snippet demonstrating how to use our measure.
 
 ```python
 import math
