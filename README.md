@@ -113,6 +113,8 @@ Applied on 8 pairs of accurate (in green) and inaccurate (in red) methods on MBA
 
 We depicts below a code snippet demonstrating how to use our measure.
 
+### Compute measure
+
 ```python
 import math
 import numpy as np
@@ -163,3 +165,9 @@ R_AUC_PR : 0.9461627563358586
 VUS_ROC : 0.972883009260739
 VUS_PR : 0.8923847635934918
 ```
+
+Note that Range_auc and VUS measures need a slidingWindow parameter. This parameter corresponds to the buffer length for Range_auc and the maximal buffer length for VUS. This parameter can be set using the following strategies:
+
+* **External Knowledge**: For a given dataset, slidingWindow should be set to the labeled_anomaly length (for instance, averaged label labeled anomaly length).
+* **Method Knowledge**: Most subsequence anomaly detection methods have a subsequence length parameter. In order to be consistent with the output provided by the method, slidingWindow should be the same as the subsequence length parameter.
+* **Automatic estimation**: For each dataset, we can automatically estimate the slidingWindow (and subsequence length parameter). In order to do this, we use cross-correlation. Please see the code snippets below for each strategy.
