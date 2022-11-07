@@ -171,16 +171,17 @@ VUS_PR : 0.8923847635934918
 Note that Range_auc and VUS measures need a slidingWindow parameter. This parameter corresponds to the buffer length for Range_auc and the maximal buffer length for VUS. This parameter can be set using the following strategies:
 
 * **External Knowledge**: For a given dataset, slidingWindow should be set to the labeled_anomaly length (for instance, averaged label labeled anomaly length).
-* **Automatic estimation**: For each dataset, we can automatically estimate the slidingWindow. In order to do this, we use cross-correlation. Please see the code snippets below for each strategy.
+* **Automatic estimation**: For each dataset, we can automatically estimate the slidingWindow. In order to do this, we use auto-correlation. Please see the code snippets below for each strategy.
 
 #### SlidingWindow parameter: External Knowledge
+
+Example on how to set the slidingWindow parameter to the mean anomaly length of the time series:
 
 ```python
 import numpy as np
 import pandas as pd
-from vus.models.feature import Window,get_list_anomaly
-
-
+from vus.models.feature import Window
+from vus.utils.slidingWindows import get_list_anomaly
 
 # Data Preprocessing
 dataset = pd.read_csv('./data/MBA_ECG805_data.out', header=None).to_numpy()
@@ -196,3 +197,24 @@ X_data = Window(window = slidingWindow).convert(data).to_numpy()
 ```
 
 #### SlidingWindow parameter: Automatic estimation
+
+Example on how to set the slidingWindow parameter to the period of the time series:
+
+```python
+import numpy as np
+import pandas as pd
+from vus.models.feature import Window
+from vus.utils.utility import find_length
+
+# Data Preprocessing
+dataset = pd.read_csv('./data/MBA_ECG805_data.out', header=None).to_numpy()
+data = dataset[:, 0]
+labels = dataset[:, 1]
+
+# set to the mean anoamly length in the time series
+slidingWindow = find_length(data)
+
+#Build dataset
+X_data = Window(window = slidingWindow).convert(data).to_numpy()
+
+```
