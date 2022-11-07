@@ -181,7 +181,7 @@ Example on how to set the slidingWindow parameter to the mean anomaly length of 
 import numpy as np
 import pandas as pd
 from vus.models.feature import Window
-from vus.utils.slidingWindows import get_list_anomaly
+from vus.utils.utility import get_list_anomaly
 
 # Data Preprocessing
 dataset = pd.read_csv('./data/MBA_ECG805_data.out', header=None).to_numpy()
@@ -204,7 +204,7 @@ Example on how to set the slidingWindow parameter to the period of the time seri
 import numpy as np
 import pandas as pd
 from vus.models.feature import Window
-from vus.utils.utility import find_length
+from vus.utils.slidingWindows import find_length
 
 # Data Preprocessing
 dataset = pd.read_csv('./data/MBA_ECG805_data.out', header=None).to_numpy()
