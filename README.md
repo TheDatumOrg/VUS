@@ -166,8 +166,33 @@ VUS_ROC : 0.972883009260739
 VUS_PR : 0.8923847635934918
 ```
 
+### SlidingWindow parameter
+
 Note that Range_auc and VUS measures need a slidingWindow parameter. This parameter corresponds to the buffer length for Range_auc and the maximal buffer length for VUS. This parameter can be set using the following strategies:
 
 * **External Knowledge**: For a given dataset, slidingWindow should be set to the labeled_anomaly length (for instance, averaged label labeled anomaly length).
-* **Method Knowledge**: Most subsequence anomaly detection methods have a subsequence length parameter. In order to be consistent with the output provided by the method, slidingWindow should be the same as the subsequence length parameter.
-* **Automatic estimation**: For each dataset, we can automatically estimate the slidingWindow (and subsequence length parameter). In order to do this, we use cross-correlation. Please see the code snippets below for each strategy.
+* **Automatic estimation**: For each dataset, we can automatically estimate the slidingWindow. In order to do this, we use cross-correlation. Please see the code snippets below for each strategy.
+
+#### SlidingWindow parameter: External Knowledge
+
+```python
+import numpy as np
+import pandas as pd
+from vus.models.feature import Window,get_list_anomaly
+
+
+
+# Data Preprocessing
+dataset = pd.read_csv('./data/MBA_ECG805_data.out', header=None).to_numpy()
+data = dataset[:, 0]
+labels = dataset[:, 1]
+
+# set to the mean anoamly length in the time series
+slidingWindow = np.mean(get_list_anomaly(labels))
+
+#Build dataset
+X_data = Window(window = slidingWindow).convert(data).to_numpy()
+
+```
+
+#### SlidingWindow parameter: Automatic estimation
