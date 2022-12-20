@@ -120,7 +120,7 @@ import math
 import numpy as np
 import pandas as pd
 from vus.models.feature import Window
-from vus.metrics import get_range_vus_roc
+from vus.metrics import get_metrics
 from sklearn.preprocessing import MinMaxScaler
 
 
@@ -140,7 +140,7 @@ def scoring(score, labels, slidingWindow):
     score = MinMaxScaler(feature_range=(0,1)).fit_transform(score.reshape(-1,1)).ravel()
     score = np.array([score[0]]*math.ceil((slidingWindow-1)/2) + list(score) + [score[-1]]*((slidingWindow-1)//2))
 
-    results = get_range_vus_roc(score, labels, slidingWindow)
+    results = get_metrics(score, labels, metric='all', slidingWindow=slidingWindow) # default metric='vus'
 
     for metric in results.keys():
         print(metric, ':', results[metric])
@@ -160,10 +160,21 @@ scoring(if_score, labels, slidingWindow)
 
 ```
 Isolation Forest
-R_AUC_ROC : 0.9890585796916135
-R_AUC_PR : 0.9461627563358586
-VUS_ROC : 0.972883009260739
-VUS_PR : 0.8923847635934918
+AUC_ROC : 0.9263301592778213
+AUC_PR : 0.6973053569232922
+Precision : 0.8200118413262285
+Recall : 0.41138613861386136
+F : 0.5479000461528318
+Precision_at_k : 0.41138613861386136
+Rprecision : 0.7840823900854653
+Rrecall : 0.29697975549209193
+RF : 0.4307922489855251
+R_AUC_ROC : 0.9892262823191413
+R_AUC_PR : 0.946785752183305
+VUS_ROC : 0.9744692546344875
+VUS_PR : 0.8988057857811111
+Affiliation_Precision : 0.9657740519979081
+Affiliation_Recall : 0.9877594760008377
 ```
 
 ### SlidingWindow parameter
