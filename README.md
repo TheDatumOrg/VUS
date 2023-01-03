@@ -47,6 +47,8 @@ If you use VUS in your project or research, cite the following two papers:
   publisher={VLDB Endowment}
 }
 ```
+> "Local Evaluation of Time Series Anomaly Detection Algorithms", 
+ > Accepted in KDD 2022 Research Track: Proceedings of the 28th ACM SIGKDD Conference on Knowledge Discovery and Data Mining.
 
 ## Data
 
