@@ -1,4 +1,13 @@
-# Volume Under the Surface: A New Accuracy Evaluation Measure for Time-Series Anomaly Detection
+
+<h1 align="center">Volume Under the Surface</h1>
+<h2 align="center">A New Accuracy Evaluation Measure for Time-Series Anomaly Detection</h2>
+
+<div align="center">
+<p>
+<img alt="PyPI - Downloads" src="https://pepy.tech/badge/vus"> <img alt="PyPI" src="https://img.shields.io/pypi/v/vus"> <img alt="GitHub issues" src="https://img.shields.io/github/issues/TheDatumOrg/VUS"> <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/vus">
+</p>
+</div>
+
 
 The receiver operator characteristic (ROC) curve and the area under the curve (AUC) are widely used to compare the performance of different anomaly detectors. They mainly focus on point-based detection. However, the detection of collective anomalies concerns two factors: whether this outlier is detected and what percentage of this outlier is detected. The first factor is not reflected in the AUC. Another problem is the possible shift between the anomaly score and the real outlier due to the application of the sliding window. To tackle these problems, we incorporate the idea of range-based precision and recall, and suggest the range-based ROC and its counterpart in the precision-recall space, which provides a new evaluation for the collective anomalies. We finally introduce a new measure VUS (Volume Under the Surface) which corresponds to the averaged range-based measure when we vary the range size. We demonstrate in a large experimental evaluation that the proposed measures are significantly more robust to important criteria (such as lag and noise) and also significantly more useful to separate correctly the accurate from the the inaccurate methods.
 
