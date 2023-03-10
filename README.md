@@ -1,3 +1,7 @@
+<p align="center">
+<img width="150" src="./docs/VUS_logo.png"/>
+</p>
+
 
 <h1 align="center">Volume Under the Surface</h1>
 <h2 align="center">A New Accuracy Evaluation Measure for Time-Series Anomaly Detection</h2>
