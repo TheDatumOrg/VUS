@@ -4,7 +4,7 @@
 
 <div align="center">
 <p>
-<img alt="PyPI - Downloads" src="https://pepy.tech/badge/vus"> <img alt="PyPI" src="https://img.shields.io/pypi/v/vus"> <img alt="GitHub issues" src="https://img.shields.io/github/issues/TheDatumOrg/VUS"> <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/vus">
+<img alt="PyPI - Downloads" src="https://pepy.tech/badge/vus"> <img alt="PyPI" src="https://img.shields.io/pypi/v/vus"> <img alt="GitHub issues" src="https://img.shields.io/github/issues/TheDatumOrg/vus"> <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/vus">
 </p>
 </div>
 
