@@ -3,7 +3,7 @@ from .utils.metrics import metricor
 from .analysis.robustness_eval import generate_curve
 
 
-def get_metrics(score, labels, metric='vus', slidingWindow=None):
+def get_metrics(score, labels, preds=None, metric='vus', slidingWindow=None):
     metrics = {}
     if metric == 'vus':
         grader = metricor()
