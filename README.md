@@ -255,3 +255,9 @@ X_data = Window(window = slidingWindow).convert(data).to_numpy()
 slidingWindow parameter:  99
 ```
 
+## Contributors
+
+- John Paparrizos
+- Sai Prasanna Teja Reddy Bogireddy
+- Paul Boniol
+- Ashwin Krishna
