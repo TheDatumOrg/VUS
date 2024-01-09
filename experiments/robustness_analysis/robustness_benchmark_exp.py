@@ -235,8 +235,11 @@ def bounded_random_walk(length, lower_bound,  upper_bound, start, end, std):
 
 
     
-def generate_curve(label,score,slidingWindow):
-    tpr_3d, fpr_3d, prec_3d, window_3d, avg_auc_3d, avg_ap_3d = metricor().RangeAUC_volume(labels_original=label, score=score, windowSize=1*slidingWindow)
+def generate_curve(label,score,slidingWindow, version='opt', thre=250):
+    if version =='opt_mem':
+        tpr_3d, fpr_3d, prec_3d, window_3d, avg_auc_3d, avg_ap_3d = metricor().RangeAUC_volume_opt_mem(labels_original=label, score=score, windowSize=slidingWindow, thre=thre)
+    else:
+         tpr_3d, fpr_3d, prec_3d, window_3d, avg_auc_3d, avg_ap_3d = metricor().RangeAUC_volume_opt(labels_original=label, score=score, windowSize=slidingWindow, thre=thre)
 
     X = np.array(tpr_3d).reshape(1,-1).ravel()
     X_ap = np.array(tpr_3d)[:,:-1].reshape(1,-1).ravel()
@@ -278,7 +281,7 @@ def compute_anomaly_acc_lag(methods_scores,label,slidingWindow,methods_keys):
             R_AUC, R_AP, R_fpr, R_tpr, R_prec = grader.RangeAUC(labels=new_label, score=methods_scores[methods_score], window=slidingWindow, plot_ROC=True) 
             L, fpr, tpr= grader.metric_new(new_label, methods_scores[methods_score], plot_ROC=True)
             precision, recall, AP = grader.metric_PR(new_label, methods_scores[methods_score])  
-            Y, Z, X, X_ap, W, Z_ap,avg_auc_3d, avg_ap_3d = generate_curve(new_label,methods_scores[methods_score],2*slidingWindow)
+            Y, Z, X, X_ap, W, Z_ap,avg_auc_3d, avg_ap_3d = generate_curve(new_label,methods_scores[methods_score],2*slidingWindow, version='opt', thre=250)
             L1 = [ elem for elem in L]
 
             dict_acc['R_AUC_ROC']      +=[R_AUC]
@@ -342,7 +345,7 @@ def compute_anomaly_acc_percentage(methods_scores,label,slidingWindow,methods_ke
             R_AUC, R_AP, R_fpr, R_tpr, R_prec = grader.RangeAUC(labels=new_label, score=new_score, window=slidingWindow, plot_ROC=True) 
             L, fpr, tpr= grader.metric_new(new_label, new_score, plot_ROC=True)
             precision, recall, AP = grader.metric_PR(new_label, new_score)  
-            Y, Z, X, X_ap, W, Z_ap,avg_auc_3d, avg_ap_3d = generate_curve(new_label,new_score,2*slidingWindow)
+            Y, Z, X, X_ap, W, Z_ap,avg_auc_3d, avg_ap_3d = generate_curve(new_label,new_score,2*slidingWindow, version='opt', thre=250)
             L1 = [ elem for elem in L]
 
             dict_acc['R_AUC_ROC']      +=[R_AUC]
@@ -399,7 +402,7 @@ def compute_anomaly_acc_noise(methods_scores,label,slidingWindow,methods_keys):
             R_AUC, R_AP, R_fpr, R_tpr, R_prec = grader.RangeAUC(labels=new_label, score=new_score, window=slidingWindow, plot_ROC=True) 
             L, fpr, tpr= grader.metric_new(new_label, new_score, plot_ROC=True)
             precision, recall, AP = grader.metric_PR(new_label, new_score)  
-            Y, Z, X, X_ap, W, Z_ap,avg_auc_3d, avg_ap_3d = generate_curve(new_label,new_score,2*slidingWindow)
+            Y, Z, X, X_ap, W, Z_ap,avg_auc_3d, avg_ap_3d = generate_curve(new_label,new_score,2*slidingWindow, version='opt', thre=250)
             L1 = [ elem for elem in L]
 
             dict_acc['R_AUC_ROC']      +=[R_AUC]

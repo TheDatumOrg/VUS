@@ -89,7 +89,7 @@ class basic_metricor:
         return (score >= (score_mu + 3*score_sigma)).astype(int)
     
     
-    def metric_new(self, label, score, preds=None, plot_ROC=False, alpha=0.2):
+    def metric_new(self, label, score, plot_ROC=False, alpha=0.2):
         '''input:
                Real labels and anomaly score in prediction
             
@@ -122,9 +122,7 @@ class basic_metricor:
             # display.plot()            
             
         #precision, recall, F
-        if not preds:
-            preds = score > (np.mean(score)+3*np.std(score))
-            
+        preds = score > (np.mean(score)+3*np.std(score))
         Precision, Recall, F, Support = metrics.precision_recall_fscore_support(label, preds, zero_division=0)
         precision = Precision[1]
         recall = Recall[1]

@@ -13,7 +13,7 @@ import pickle
 
 import os
 import sys
-module_path = os.path.abspath(os.path.join('../..'))
+module_path = os.path.abspath(os.path.join( '../..'))
 if module_path not in sys.path:
     sys.path.append(module_path)
 
@@ -175,7 +175,7 @@ def compute_score(slidingWindow,data,X_data,data_train,data_test,X_train,X_test,
                     measure.detector = clf
                     measure.set_param()
                     clf.decision_function(measure=measure)
-                    score = clf.decision_scores_
+                    score = clf.decision_suores_
                     score = MinMaxScaler(feature_range=(0,1)).fit_transform(score.reshape(-1,1)).ravel()
 
             end_time = time.time()
@@ -193,7 +193,7 @@ def compute_score(slidingWindow,data,X_data,data_train,data_test,X_train,X_test,
             R_AUC, R_AP, R_fpr, R_tpr, R_prec = grader.RangeAUC(labels=new_label, score=methods_scores[methods_score], window=slidingWindow, plot_ROC=True) 
             L, fpr, tpr= grader.metric_new(new_label, methods_scores[methods_score], plot_ROC=True)
             precision, recall, AP = grader.metric_PR(new_label, methods_scores[methods_score])  
-            Y, Z, X, X_ap, W, Z_ap,avg_auc_3d, avg_ap_3d = generate_curve(new_label,methods_scores[methods_score],2*slidingWindow)
+            Y, Z, X, X_ap, W, Z_ap,avg_auc_3d, avg_ap_3d = generate_curve(new_label,methods_scores[methods_score],2*slidingWindow, version='opt',thre=250)
             L1 = [ elem for elem in L]
 
             methods_acc[methods_score]['R_AUC_ROC']      +=[R_AUC]
@@ -214,8 +214,11 @@ def compute_score(slidingWindow,data,X_data,data_train,data_test,X_train,X_test,
     return methods_acc
 
 
-def generate_curve(label,score,slidingWindow):
-    tpr_3d, fpr_3d, prec_3d, window_3d, avg_auc_3d, avg_ap_3d = metricor().RangeAUC_volume(labels_original=label, score=score, windowSize=1*slidingWindow)
+def generate_curve(label,score,slidingWindow, version='opt', thre=250):
+    if version =='opt_mem':
+        tpr_3d, fpr_3d, prec_3d, window_3d, avg_auc_3d, avg_ap_3d = metricor().RangeAUC_volume_opt_mem(labels_original=label, score=score, windowSize=slidingWindow, thre=thre)
+    else:
+        tpr_3d, fpr_3d, prec_3d, window_3d, avg_auc_3d, avg_ap_3d = metricor().RangeAUC_volume_opt(labels_original=label, score=score, windowSize=slidingWindow, thre=thre)
 
     X = np.array(tpr_3d).reshape(1,-1).ravel()
     X_ap = np.array(tpr_3d)[:,:-1].reshape(1,-1).ravel()
@@ -225,7 +228,6 @@ def generate_curve(label,score,slidingWindow):
     Z_ap = np.repeat(window_3d, len(tpr_3d[0])-1)
     
     return Y, Z, X, X_ap, W, Z_ap,avg_auc_3d, avg_ap_3d
-
 
 
 def run_method_analysis(filepath):
