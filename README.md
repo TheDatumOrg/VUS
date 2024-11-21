@@ -19,10 +19,16 @@ The receiver operator characteristic (ROC) curve and the area under the curve (A
 <img width="500" src="./docs/RangeAUCandVUS.png"/>
 </p>
 
+Related Repository:
+- [TSB-AD](https://github.com/TheDatumOrg/TSB-AD): Towards A Reliable Time-Series Anomaly Detection Benchmark.
+- [TSB-UAD](https://github.com/TheDatumOrg/TSB-UAD): An End-to-End Benchmark Suite for Univariate Time-Series Anomaly Detection.
+
+
 If you use VUS in your project or research, cite the following two papers:
 
 * [VLDB 2022a](https://www.paparrizos.org/papers/PaparrizosVLDB22a.pdf)
 * [VLDB 2022b](https://www.paparrizos.org/papers/PaparrizosVLDB22b.pdf)
+* [NeurIPS 2024](https://openreview.net/pdf?id=R6kJtWsTGy)
 
 ## References
 
@@ -60,9 +66,20 @@ If you use VUS in your project or research, cite the following two papers:
   publisher={VLDB Endowment}
 }
 ```
-> "Local Evaluation of Time Series Anomaly Detection Algorithms", 
-> Accepted in KDD 2022 Research Track: Proceedings of the 28th ACM SIGKDD Conference on Knowledge Discovery and Data Mining.
->  [Affiliation Metrics](https://github.com/ahstat/affiliation-metrics-py)
+
+> "The Elephant in the Room: Towards A Reliable Time-Series Anomaly Detection Benchmark"<br/>
+> Qinghua Liu and John Paparrizos<br/>
+> NeurIPS 2024<br/>
+
+```bibtex
+@inproceedings{liu2024elephant,
+  title={The Elephant in the Room: Towards A Reliable Time-Series Anomaly Detection Benchmark},
+  author={Liu, Qinghua and Paparrizos, John},
+  booktitle={NeurIPS 2024},
+  year={2024}
+}
+
+```
 
 ## Data
 
