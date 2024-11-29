@@ -1,29 +1,55 @@
 import numpy as np
-# from sklearn.utils.validation import check_is_fitted
 from sklearn.preprocessing import MinMaxScaler
-
 from tensorflow.keras.models import Sequential
-# from tensorflow.keras.layers import Dense, LSTM, Dropout, RepeatVector, TimeDistributed
 from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras import layers
 
 
 class AE_MLP2:
-#Autoencoder using LSTM    
-    def __init__(self, slidingWindow = 100,  contamination = 0.1, epochs = 10, verbose=0):
+    """
+    Implementation of AE_MLP2
+    
+    Parameters
+    ----------
+    slidingwindow : int
+        Subsequence length to analyze.
+    epochs : int, (default=10)
+        Number of epochs for the training phase
+
+    Attributes
+    ----------
+    decision_scores_ : numpy array of shape (n_samples - subsequence_length,)
+        The anomaly score.
+        The higher, the more abnormal. Anomalies tend to have higher
+        scores. This value is available once the detector is
+        fitted.
+    """  
+    def __init__(self, slidingWindow = 100, epochs = 10, verbose=0):
         self.slidingWindow = slidingWindow
-        self.contamination = contamination
         self.epochs = epochs
         self.verbose = verbose
         self.model_name = 'AE_MLP2'
 
     def fit(self, X_clean, X_dirty, ratio = 0.15):
+        """Fit detector.
+        
+        Parameters
+        ----------
+        X_clean : numpy array of shape (n_samples, )
+            The input training samples.
+        X_dirty : numpy array of shape (n_samples, )
+            The input testing samples.
+        ratio : flaot, ([0,1])
+            The ratio for the train validation split
+        
+        Returns
+        -------
+        self : object
+            Fitted estimator.
+        """
 
         TIME_STEPS =  self.slidingWindow
         epochs = self.epochs
-        
-
-        # self.n_train_ = len(X_dirty)
         
 
         X_train = self.create_dataset(X_clean,TIME_STEPS)
@@ -36,15 +62,11 @@ class AE_MLP2:
         model.add(layers.Dense(32,  activation='relu'))
         model.add(layers.BatchNormalization())
         model.add(layers.Dense(16, activation='relu'))
-        # 
-        # model.add(layers.Dense(8, activation='relu'))
-        # model.add(layers.Dense(16, activation='relu'))
         model.add(layers.BatchNormalization())
         model.add(layers.Dense(32, activation='relu'))
         model.add(layers.Dense(TIME_STEPS, activation='relu'))
  
-        model.compile(optimizer='adam', loss='mse')
-        
+        model.compile(optimizer='adam', loss='mse')     
         
         history = model.fit(X_train, X_train,
                         epochs=epochs,
@@ -52,12 +74,6 @@ class AE_MLP2:
                         shuffle=False,
                         validation_split=0.15,verbose=self.verbose,
                         callbacks=[EarlyStopping(monitor="val_loss", verbose=self.verbose, patience=5, mode="min")])
-        
-        # model.summary()
-        
-        # plt.figure()
-        # plt.plot(history.history["loss"],'r')
-        # plt.plot(history.history["val_loss"],'b')
 
         test_predict = model.predict(X_test)
         test_mae_loss = np.mean(np.abs(test_predict - X_test), axis=1)

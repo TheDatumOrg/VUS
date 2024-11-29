@@ -24,7 +24,7 @@ Related Repository:
 - [TSB-UAD](https://github.com/TheDatumOrg/TSB-UAD): An End-to-End Benchmark Suite for Univariate Time-Series Anomaly Detection.
 
 
-If you use VUS in your project or research, cite the following two papers:
+If you use VUS in your project or research, cite the following papers:
 
 * [VLDB 2022a](https://www.paparrizos.org/papers/PaparrizosVLDB22a.pdf)
 * [VLDB 2022b](https://www.paparrizos.org/papers/PaparrizosVLDB22b.pdf)

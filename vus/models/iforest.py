@@ -1,4 +1,3 @@
- #-*- coding: utf-8 -*-
 """IsolationForest Outlier Detector. Implemented on scikit-learn library.
 """
 # Author: Yinchen Wu <Yinchen@uchicago.edu>
@@ -9,43 +8,36 @@ from __future__ import print_function
 from sklearn.ensemble import IsolationForest
 from sklearn.utils.validation import check_is_fitted
 from sklearn.utils import check_array
-# from sklearn.utils import column_or_1d
 
-
-import numpy as np
-# from warnings import filterwarnings
+from ..utils.utility import invert_order
 from .detectorB import DetectorB
-# from ..utils.utility import _get_sklearn_version
 
 
 class IForest(DetectorB):
-    """The IsolationForest 'isolates' observations by randomly selecting a
-    feature and then randomly selecting a split value between the maximum and
-    minimum values of the selected feature.
-    See :cite:`liu2008isolation,liu2012isolation` for details.
-    IForest assumes a correlation between the distance of tree structure and the
-    likelihood of being an anomly. Obviously, random partitioning produces noticeably 
-    shorter paths for anomalies. Hence, by randomly creating tree structure on the 
-    dataset, we may calculate the expected distance of each point and thus a measure
-    of its normality.
+    """Wrapper of scikit-learn IsolationForest Class with more functionalities.
+
     Parameters
     ----------
     n_estimators : int, optional (default=100)
         The number of base estimators in the ensemble.
-    max_samples : int or float, optional (default="auto")
+    max_samples : int, float or string, optional, default="auto"
         The number of samples to draw from X to train each base estimator.
+
             - If int, then draw `max_samples` samples.
             - If float, then draw `max_samples * X.shape[0]` samples.
             - If "auto", then `max_samples=min(256, n_samples)`.
+
     contamination : float in (0., 0.5), optional (default=0.1)
         The amount of contamination of the data set, i.e. the proportion
         of outliers in the data set. Used when fitting to define the threshold
         on the decision function.
     max_features : int or float, optional (default=1.0)
         The number of features to draw from X to train each base estimator.
+
             - If int, then draw `max_features` features.
             - If float, then draw `max_features * X.shape[1]` features.
             - this attribute is useless of a sensor timeseries anomly
+
     bootstrap : bool, optional (default=False)
         If True, individual trees are fit on random subsets of the training
         data sampled with replacement. If False, sampling without replacement
@@ -58,8 +50,14 @@ class IForest(DetectorB):
         If RandomState instance, random_state is the random number generator;
         If None, the random number generator is the RandomState instance used
         by `np.random`.
+    
     Attributes
     ----------
+    decision_scores_ : numpy array of shape (n_samples,)
+        The outlier scores of the training data.
+        The higher, the more abnormal. Outliers tend to have higher
+        scores. This value is available once the detector is
+        fitted.
     estimators_ : list of DecisionTreeClassifier
         The collection of fitted sub-estimators.
     estimators_samples_ : list of arrays
@@ -67,11 +65,6 @@ class IForest(DetectorB):
         estimator.
     max_samples_ : integer
         The actual number of samples
-    decision_scores_ : numpy array of shape (n_samples,)
-        The outlier scores of the training data.
-        The higher, the more abnormal. Outliers tend to have higher
-        scores. This value is available once the detector is
-        fitted.
     threshold_ : float
         The threshold is based on ``contamination``. It is the
         ``n_samples * contamination`` most abnormal samples in
@@ -104,12 +97,14 @@ class IForest(DetectorB):
 
     def fit(self, X, y=None):
         """Fit detector. y is ignored in unsupervised methods.
+        
         Parameters
         ----------
         X : numpy array of shape (n_samples, n_features)
-            The input samples.
+            The input samples (time series length). n_features corresponds to the subsequence length.
         y : Ignored
             Not used, present for API consistency by convention.
+        
         Returns
         -------
         self : object
@@ -137,8 +132,6 @@ class IForest(DetectorB):
 
         # invert decision_scores_. Outliers comes with higher outlier scores.
         self.decision_scores_ = -self.detector_.score_samples(X)
-        
-        # self._process_decision_scores()
         return self
 
     def decision_function(self, X):
@@ -146,11 +139,13 @@ class IForest(DetectorB):
         The anomaly score of an input sample is computed based on different
         detector algorithms. For consistency, outliers are assigned with
         larger anomaly scores.
+        
         Parameters
         ----------
         X : numpy array of shape (n_samples, n_features)
             The training input samples. Sparse matrices are accepted only
             if they are supported by the base estimator.
+        
         Returns
         -------
         anomaly_scores : numpy array of shape (n_samples,)
@@ -165,6 +160,8 @@ class IForest(DetectorB):
     def estimators_(self):
         """The collection of fitted sub-estimators.
         Decorator for scikit-learn Isolation Forest attributes.
+
+        :meta private:
         """
         return self.detector_.estimators_
 
@@ -173,54 +170,15 @@ class IForest(DetectorB):
         """The subset of drawn samples (i.e., the in-bag samples) for
         each base estimator.
         Decorator for scikit-learn Isolation Forest attributes.
+
+        :meta private:
         """
         return self.detector_.estimators_samples_
 
     def max_samples_(self):
         """The actual number of samples.
         Decorator for scikit-learn Isolation Forest attributes.
+
+        :meta private:
         """
         return self.detector_.max_samples_
-
-# =============================================================================
-#     def _set_n_classes(self, y):
-#         """Set the number of classes if `y` is presented, which is not
-#         expected. It could be useful for multi-class outlier detection.
-#         Parameters
-#         ----------
-#         y : numpy array of shape (n_samples,)
-#             Ground truth.
-#         Returns
-#         -------
-#         self
-#         """
-# 
-#         self._classes = 2  # default as binary classification
-#         if y is not None:
-#             check_classification_targets(y)
-#             self._classes = len(np.unique(y))
-#             warnings.warn(
-#                 "y should not be presented in unsupervised learning.")
-#         return self
-# =============================================================================
-    
-    def _process_decision_scores(self):
-        """Internal function to calculate key attributes:
-        - threshold_: used to decide the binary label
-        - labels_: binary labels of training data
-        Returns
-        -------
-        self
-        """
-
-        # self.threshold_ = percentile(self.decision_scores_,
-        #                              100 * (1 - self.contamination))
-        # self.labels_ = (self.decision_scores_ > self.threshold_).astype(
-        #     'int').ravel()
-
-        # calculate for predict_proba()
-
-        self._mu = np.mean(self.decision_scores_)
-        self._sigma = np.std(self.decision_scores_)
-
-        return self

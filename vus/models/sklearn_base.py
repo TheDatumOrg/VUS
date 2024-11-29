@@ -1,8 +1,5 @@
-# -*- coding: utf-8 -*-
 """Utility function copied over from sklearn/base.py
 """
-
-
 
 from __future__ import division
 from __future__ import print_function

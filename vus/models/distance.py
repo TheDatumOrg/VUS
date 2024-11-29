@@ -1,21 +1,10 @@
-# -*- coding: utf-8 -*-
 """Classes of distance measure for model type A
 """
 # Author: Yinchen Wu <yinchen@uchicago.edu>
 
 import numpy as np
-# import matplotlib.pyplot as plt
-# import random
 from arch import arch_model
-# import pandas as pd
 import math
-# import pmdarima as pm
-# from pmdarima import model_selection
-# import os
-# import dis
-# import statistics
-# from sklearn import metrics
-# import sklearn
 
 
 class Euclidean:
@@ -79,7 +68,6 @@ class Euclidean:
         elif type(X_train) == int:
             print('Error! Detector is not fed to the object and X_train is not known')
         elif neighborhood != 'all':
-            length = X.shape[0]
             neighbor = int(self.neighborhood/2)
 
             if index + neighbor < self.n_train_ and index - neighbor > 0: 
@@ -262,7 +250,6 @@ class Garch:
             self.estimation = self.detector.estimation
             self.X_train = self.detector.X_train_
             self.window = self.detector.window
-            window = self.window
             resid = 10 * (self.X_train - self.estimation)
             model = arch_model(resid, mean=mean, vol=vol, p=p, q=q)
             model_fit = model.fit(disp='off')
@@ -386,7 +373,7 @@ class SSA_DISTANCE:
         #linearization of data X2 and X3
         X2 = np.array(X2)
         X3 = np.array(X3)
-        e = self.e
+
         fit = self.Linearization(X2)
         fit2 = self.Linearization(X3)
     
@@ -627,8 +614,8 @@ class EDRS:
         X = np.array(self.detector.X_train_)
         self.initial = initial
         residual = estimation[initial:] - X[initial:]
-        number = len(residual)
-        #var = (np.sum(np.square(residual))/(number - 1))**0.5
+        # number = len(residual)
+        # var = (np.sum(np.square(residual))/(number - 1))**0.5
         vot = self.vot
         if vot == False:
             var = np.var(residual)
@@ -641,7 +628,6 @@ class EDRS:
             self.ep =  3 * (np.sum(np.square(residual))/(len(residual) - 1))**0.5
         else: 
             self.ep = self.ep
-        
         
         return self
 

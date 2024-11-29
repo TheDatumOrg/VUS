@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-__version__ = "0.0.1"
+__version__ = "0.0.6"
 
 CLASSIFIERS = [
     "Development Status :: 5 - Production/Stable",
@@ -21,22 +21,25 @@ setup(
     version=__version__,
     description="Volume Under the Surface",
     classifiers=CLASSIFIERS,
-    author="Teja",
-    author_email="tejabogireddy19@gmail.com",
+    author="The DATUM Lab",
+    author_email="john@paparrizos.org",
     packages=find_packages(),
     zip_safe=True,
     license="",
-    url="https://github.com/bogireddytejareddy/VUS",
+    url="https://github.com/TheDatumOrg/VUS",
     entry_points={},
     install_requires=[
-        "arch==5.3.1",
-        "hurst==0.0.5",
-        "matplotlib==3.5.3",
-        "numpy==1.21.6",
-        "pandas==1.3.5",
-        "scikit-learn==0.22",
-        "scipy==1.7.3",
-        "statsmodels==0.13.2",
-        "tsfresh==0.8.1"
+        'numpy>=1.24.3',
+        'matplotlib>=3.7.5',
+        'pandas>=2.0.3',
+        'arch>=5.3.1',
+        'tsfresh>=0.20.2',
+        'hurst>=0.0.5',
+        'tslearn>=0.6.3',
+        'cython>=3.0.10',
+        'scikit-learn>=1.3.2',
+        'stumpy>=1.12.0',
+        'tensorflow>=2.13.0',
+        'networkx>=3.1',
         ]
 )

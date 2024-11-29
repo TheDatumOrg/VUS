@@ -1,40 +1,18 @@
-# -*- coding: utf-8 -*-
-"""Polynomial Anomoly Detector with GARCH method and raw error method
+"""Polynomial Anomaly Detector with GARCH method and raw error method
 """
 # Author: Yinchen Wu <yinchen@uchicago.edu>
 
 import numpy as np
-# import matplotlib.pyplot as plt
-# import random
-# from arch import arch_model
-# import pandas as pd
 import math
-# import pmdarima as pm
-# from pmdarima import model_selection
-# import os
-# import dis
-# import statistics
-# from sklearn import metrics
-# import sklearn
-
-from numpy import percentile
 from scipy.special import erf
 from sklearn.preprocessing import MinMaxScaler
-# from sklearn.metrics import roc_auc_score
-from sklearn.utils import deprecated
 from sklearn.utils.validation import check_is_fitted
-from sklearn.utils.multiclass import check_classification_targets
-
 from ..models.detectorA import DetectorA
-# from ..utils.utility import precision_n_scores
+
 
 class POLY(DetectorA):
-    """An elementary method to detect pointwise anomolies using polynomial approxiamtion. 
-    A polynomial of certain degree and window size is fitted to the given timeseries dataset.
-    A GARCH method is ran on the difference betweeen the approximation and the true value of 
-    the dataset to estimate the volatitilies of each point. A detector score is derived on each 
-    point based on the estimated volatitilies and residual to measure the normality of each point.
-    An alternative method that only considers absoulte difference is also used. 
+    """Polynomial Anomaly Detector with GARCH method and raw error method
+    
     Parameters
     ----------
     Power : int, optional (default=1)
@@ -52,13 +30,13 @@ class POLY(DetectorA):
 
     Attributes
     ----------
-    estimators_ : dictionary of coefficients at each polynomial
-        The collection of fitted sub-estimators.
     decision_scores_ : numpy array of shape (n_samples,)
         The outlier scores of the training data.
         The higher, the more abnormal. Outliers tend to have higher
         scores. This value is available once the detector is
         fitted.
+    estimators_ : dictionary of coefficients at each polynomial
+        The collection of fitted sub-estimators.
     threshold_ : float
         The threshold is based on ``contamination``. It is the
         ``n_samples * contamination`` most abnormal samples in
@@ -83,12 +61,14 @@ class POLY(DetectorA):
 
     def fit(self, X, y=None):
         """Fit detector. y is ignored in unsupervised methods.
+        
         Parameters
         ----------
         X : numpy array of shape (n_samples, )
             The input samples.
         y : Ignored
             Not used, present for API consistency by convention.
+        
         Returns
         -------
         self : object
@@ -175,12 +155,14 @@ class POLY(DetectorA):
     
     def decision_function(self, X= False, measure = None):
         """Derive the decision score based on the given distance measure
+        
         Parameters
         ----------
         X : numpy array of shape (n_samples, )
             The input samples.
         measure : object
             object for given distance measure with methods to derive the score
+        
         Returns
         -------
         self : object
@@ -212,17 +194,20 @@ class POLY(DetectorA):
     def predict_proba(self, X, method='linear', measure = None):
         """Predict the probability of a sample being outlier. Two approaches
         are possible:
+        
         1. simply use Min-max conversion to linearly transform the outlier
            scores into the range of [0,1]. The model must be
            fitted first.
-        2. use unifying scores, see :cite:`kriegel2011interpreting`.
+        2. use unifying scores.
+        
         Parameters
         ----------
         X : numpy array of shape (n_samples, n_features)
             The input samples.
-        method : str, optional (default='linear')
+        method : str, optional, default='linear'
             probability conversion method. It must be one of
             'linear' or 'unify'.
+        
         Returns
         -------
         outlier_probability : numpy array of shape (n_samples,)
