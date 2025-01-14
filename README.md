@@ -83,7 +83,11 @@ If you use VUS in your project or research, cite the following papers:
 
 ## Data
 
-To ease reproducibility, we share our results over [TSB-UAD](http://chaos.cs.uchicago.edu/tsb-uad/public.zip) benchmark dataset
+To ease reproducibility, we share our results over [TSB-UAD](http://chaos.cs.uchicago.edu/tsb-uad/public.zip) benchmark dataset. The figure below shows some typical outliers in the 18 datasets of TSB-UAD.
+
+<p align="center">
+<img width="1000" src="./docs/display_data.jpg"/>
+</p>
 
 ## Installation
 
